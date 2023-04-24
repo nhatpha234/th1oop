@@ -1,0 +1,72 @@
+package bai1b;
+1import java.util.Scanner;
+	import java.util.Arrays;
+
+
+	public class Vehicle {
+	    private String ownerName;
+	    private String vehicleType;
+	    private int engineCapacity;
+	    private int value;
+
+	    public Vehicle(String ownerName, String vehicleType, int engineCapacity, int value) {
+	        this.ownerName = ownerName;
+	        this.vehicleType = vehicleType;
+	        this.engineCapacity = engineCapacity;
+	        this.value = value;
+	    }
+
+	    public double getTax() {
+	        if (engineCapacity < 100) {
+	            return value * 0.01;
+	        } else if (engineCapacity < 200) {
+	            return value * 0.03;
+	        } else {
+	            return value * 0.05;
+	        }
+	    }
+
+	    public static void printTaxTable(Vehicle[] vehicles) {
+	        System.out.println("Bang ke khai tien thue truoc ba:");
+	        System.out.println("STT\tTen chu xe\tLoai xe\tDung tich\tTri gia\tThue");
+	        for (int i = 0; i < vehicles.length; i++) {
+	            System.out.printf("%d\t%s\t\t%s\t%dcc\t%d\t%.2f\n", i + 1, vehicles[i].ownerName, vehicles[i].vehicleType,
+	                    vehicles[i].engineCapacity, vehicles[i].value, vehicles[i].getTax());
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        Vehicle[] vehicles = new Vehicle[0];
+	        Scanner scanner = new Scanner(System.in, "UTF-8");
+	        
+	        while (true) {
+	            System.out.println("Menu:");
+	            System.out.println("1. Nhap thong tin va tao cac doi tuong xe");
+	            System.out.println("2. Xuat bang ke khai tien thue truoc ba cua cac xe");
+	            System.out.println("3. Thoat");
+	            System.out.print("Vui long nhap lua chon cua ban: ");
+	            String choice = scanner.nextLine();
+
+	            if (choice.equals("1")) {
+	                System.out.print("Nhap ten chu xe: ");
+	                String ownerName = scanner.nextLine();
+	                System.out.print("Nhap loai xe: ");
+	                String vehicleType = scanner.nextLine();
+	                System.out.print("Nhap dung tich xi lanh cua xe: ");
+	                int engineCapacity = Integer.parseInt(scanner.nextLine());
+	                System.out.print("Nhap gia tri cua xe: ");
+	                int value = Integer.parseInt(scanner.nextLine());
+	                vehicles = Arrays.copyOf(vehicles, vehicles.length + 1);
+	                vehicles[vehicles.length - 1] = new Vehicle(ownerName, vehicleType, engineCapacity, value);
+	                System.out.println("Da tao thanh cong doi tuong xe!");
+	            } else if (choice.equals("2")) {
+	                printTaxTable(vehicles);
+	            } else if (choice.equals("3")) {
+	                System.out.println("Cam on ban da su dung chuong trinh!");
+	                break;
+	            } else {
+	                System.out.println("Lua chon khong hop le, vui long thu lai!");
+	            }
+	        }
+	    }
+}
